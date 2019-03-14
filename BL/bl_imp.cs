@@ -103,7 +103,7 @@ namespace BL
                 for (int i = 0; i < SequenceOReports.Count; i++)
                 {
                     double min = SequenceOReports[i].address.GetDistanceTo(ci_List[0]);
-                    SequenceOReports[i].clusterId = 0;
+                    SequenceOReports[i].clusterId  = 0;
 
                     for (int j = 1; j < ci_List.Count; j++)
                     {
