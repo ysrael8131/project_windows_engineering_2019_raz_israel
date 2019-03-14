@@ -67,7 +67,8 @@ namespace BL
         {
             dal.updateReport(report);
         }
-        public List<GeoCoordinate> k_Means(List<Report> SequenceOReports, int NumOfBooms)
+
+        public List<GeoCoordinate> k_Means(List<Report> SequenceOfReports, int NumOfBooms)
         {
 
             List<GeoCoordinate> ci_List = new List<GeoCoordinate>();
@@ -76,15 +77,15 @@ namespace BL
             double longitude_Min;
             double longitude_Max;
 
-            if (!SequenceOReports.Any())
+            if (!SequenceOfReports.Any())
             {
                 return null;
             }
 
-            latitude_Min = SequenceOReports.Min(item => item.CoordinateForAddress.Latitude);
-            latitude_Max = SequenceOReports.Max(item => item.CoordinateForAddress.Latitude);
-            longitude_Min = SequenceOReports.Min(item => item.CoordinateForAddress.Longitude);
-            longitude_Max = SequenceOReports.Max(item => item.CoordinateForAddress.Longitude);
+            latitude_Min = SequenceOfReports.Min(item => item.CoordinateForAddress.Latitude);
+            latitude_Max = SequenceOfReports.Max(item => item.CoordinateForAddress.Latitude);
+            longitude_Min = SequenceOfReports.Min(item => item.CoordinateForAddress.Longitude);
+            longitude_Max = SequenceOfReports.Max(item => item.CoordinateForAddress.Longitude);
 
             for (int i = 0; i < NumOfBooms; i++)
             {
@@ -100,39 +101,39 @@ namespace BL
             {
                 is_Changed = false;
 
-                for (int i = 0; i < SequenceOReports.Count; i++)
+                for (int i = 0; i < SequenceOfReports.Count; i++)
                 {
-                    double min = SequenceOReports[i].address.GetDistanceTo(ci_List[0]);
-                    SequenceOReports[i].clusterId  = 0;
+                    double min = SequenceOfReports[i].CoordinateForAddress.GetDistanceTo(ci_List[0]);
+                    SequenceOfReports[i].stamID = 0;
 
                     for (int j = 1; j < ci_List.Count; j++)
                     {
-                        double temp = SequenceOReports[i].address.GetDistanceTo(ci_List[j]);
+                        double temp = SequenceOfReports[i].CoordinateForAddress.GetDistanceTo(ci_List[j]);
                         if (temp < min)
                         {
                             min = temp;
                             is_Changed = true;
-                            SequenceOReports[i].clusterId = j;
+                            SequenceOfReports[i].stamID = j;
                         }
                     }
 
                 }
 
 
-                SequenceOReports.OrderBy(c => c.clusterId);
+                SequenceOfReports.OrderBy(c => c.stamID);
                 int id = 0;
                 double c_LongitudeSum = 0;
                 double c_LatitudeSum = 0;
                 int counter = 0;
-                for (int i = 0; i < SequenceOReports.Count; i++)
+                for (int i = 0; i < SequenceOfReports.Count; i++)
                 {
-                    if (SequenceOReports[i].clusterId == id)
+                    if (SequenceOfReports[i].stamID == id)
                     {
-                        c_LatitudeSum += SequenceOReports[i].address.Latitude;
-                        c_LongitudeSum += SequenceOReports[i].address.Longitude;
+                        c_LatitudeSum += SequenceOfReports[i].CoordinateForAddress.Latitude;
+                        c_LongitudeSum += SequenceOfReports[i].CoordinateForAddress.Longitude;
                         counter++;
                     }
-                    if (SequenceOReports[i].clusterId != id)
+                    if (SequenceOfReports[i].stamID != id)
                     {
                         ci_List[id].Latitude = c_LatitudeSum / counter;
                         ci_List[id].Longitude = c_LongitudeSum / counter;

@@ -10,6 +10,7 @@ namespace BE
     public class Report
     {
         public TimeSpan time { set; get; }
+        public int stamID { set; get; }
         public string name { set; get; }
         public string address { set; get; }
         public int numBooms { set; get; }
