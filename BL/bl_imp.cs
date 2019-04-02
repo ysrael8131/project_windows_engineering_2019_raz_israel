@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BL
 {
-    class bl_imp:IBL
+    class bl_imp : IBL
     {
 
         IDAL dal;
@@ -82,10 +82,10 @@ namespace BL
                 return null;
             }
 
-            latitude_Min = SequenceOfReports.Min(item => item.CoordinateForAddress.Latitude);
-            latitude_Max = SequenceOfReports.Max(item => item.CoordinateForAddress.Latitude);
-            longitude_Min = SequenceOfReports.Min(item => item.CoordinateForAddress.Longitude);
-            longitude_Max = SequenceOfReports.Max(item => item.CoordinateForAddress.Longitude);
+            latitude_Min = SequenceOfReports.Min(item => item.address.Latitude);
+            latitude_Max = SequenceOfReports.Max(item => item.address.Latitude);
+            longitude_Min = SequenceOfReports.Min(item => item.address.Longitude);
+            longitude_Max = SequenceOfReports.Max(item => item.address.Longitude);
 
             for (int i = 0; i < NumOfBooms; i++)
             {
@@ -103,12 +103,12 @@ namespace BL
 
                 for (int i = 0; i < SequenceOfReports.Count; i++)
                 {
-                    double min = SequenceOfReports[i].CoordinateForAddress.GetDistanceTo(ci_List[0]);
+                    double min = SequenceOfReports[i].address.GetDistanceTo(ci_List[0]);
                     SequenceOfReports[i].stamID = 0;
 
                     for (int j = 1; j < ci_List.Count; j++)
                     {
-                        double temp = SequenceOfReports[i].CoordinateForAddress.GetDistanceTo(ci_List[j]);
+                        double temp = SequenceOfReports[i].address.GetDistanceTo(ci_List[j]);
                         if (temp < min)
                         {
                             min = temp;
@@ -129,8 +129,8 @@ namespace BL
                 {
                     if (SequenceOfReports[i].stamID == id)
                     {
-                        c_LatitudeSum += SequenceOfReports[i].CoordinateForAddress.Latitude;
-                        c_LongitudeSum += SequenceOfReports[i].CoordinateForAddress.Longitude;
+                        c_LatitudeSum += SequenceOfReports[i].address.Latitude;
+                        c_LongitudeSum += SequenceOfReports[i].address.Longitude;
                         counter++;
                     }
                     if (SequenceOfReports[i].stamID != id)
@@ -157,6 +157,31 @@ namespace BL
             double latitude = point.Latitude;
             double longitude = point.Longitude;
             return new GeoCoordinate(latitude, longitude);
+        }
+        
+        public void addBoomsInRange(BoomsInRange boomsInRange)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void deleteBoomsInRange(BoomsInRange boomsInRange)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void updateBoomsInRange(BoomsInRange boomsInRange)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<BoomsInRange> GetBoomsInRanges()
+        {
+            throw new NotImplementedException();
+        }
+
+        public BoomsInRange GetBoomsInRange(BoomsInRange boomsInRange)
+        {
+            throw new NotImplementedException();
         }
     }
 }

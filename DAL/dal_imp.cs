@@ -22,6 +22,11 @@ namespace DAL
             ds.SaveChanges();
         }
 
+        public void addBoomsInRange(BoomsInRange boomsInRange)
+        {
+            throw new NotImplementedException();
+        }
+
         public void addReport(Report report)
         {
             ds.reports.Add(report);
@@ -31,6 +36,11 @@ namespace DAL
         public void deleteBoomLocation(BoomLocation boomLocation)
         {
 
+        }
+
+        public void deleteBoomsInRange(BoomsInRange boomsInRange)
+        {
+            throw new NotImplementedException();
         }
 
         public void deleteReport(Report report)
@@ -43,6 +53,16 @@ namespace DAL
         {
 
             return ds.boomlocations.Find(boomLocation);
+        }
+
+        public BoomsInRange GetBoomsInRange(BoomsInRange boomsInRange)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<BoomsInRange> GetBoomsInRanges()
+        {
+            throw new NotImplementedException();
         }
 
         public IEnumerable<BoomLocation> getListBoomLocation()
@@ -61,6 +81,11 @@ namespace DAL
         }
 
         public void updateBoomLocation(BoomLocation boomLocation)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void updateBoomsInRange(BoomsInRange boomsInRange)
         {
             throw new NotImplementedException();
         }

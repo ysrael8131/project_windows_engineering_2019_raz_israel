@@ -13,5 +13,6 @@ namespace DS
         public dataSource() : base() { }
         public DbSet<BoomLocation> boomlocations { get; set; }
         public DbSet<Report> reports { get; set; }
+        public DbSet<BoomsInRange> boomsInRanges { get; set; }
     }
 }

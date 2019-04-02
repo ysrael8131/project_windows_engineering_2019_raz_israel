@@ -18,10 +18,16 @@ namespace BL
         void deleteBoomLocation(BoomLocation boomLocation);
         void updateBoomLocation(BoomLocation boomLocation);
 
+        void addBoomsInRange(BoomsInRange boomsInRange);
+        void deleteBoomsInRange(BoomsInRange boomsInRange);
+        void updateBoomsInRange(BoomsInRange boomsInRange);
+
         IEnumerable<BoomLocation> getListBoomLocation();
         IEnumerable<Report> getListReports();
+        IEnumerable<BoomsInRange> GetBoomsInRanges();
 
         BoomLocation GetBoomLocation(BoomLocation boomLocation);
         Report GetReport(Report Report);
+        BoomsInRange GetBoomsInRange(BoomsInRange boomsInRange);
     }
 }
