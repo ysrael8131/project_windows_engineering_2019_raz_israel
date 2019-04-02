@@ -10,22 +10,28 @@ namespace DAL
 {
     public class dal_imp : IDAL
     {
-        dataSource ds;
-        public dal_imp()
-        {
-            ds = new dataSource();
-        }
+        // dataSource ds;
+        //public dal_imp()
+        //{
+        //    ds = new dataSource();
+        //}
 
         public void addBoomLocation(BoomLocation boomLocation)
         {
-            ds.boomlocations.Add(boomLocation);
-            ds.SaveChanges();
+            using (var ds = new dataSource())
+            {
+                ds.boomlocations.Add(boomLocation);
+                ds.SaveChanges();
+            }
         }
 
         public void addReport(Report report)
         {
-            ds.reports.Add(report);
-            ds.SaveChanges();
+            using (var ds = new dataSource())
+            {
+                ds.reports.Add(report);
+                ds.SaveChanges();
+            }
         }
 
         public void deleteBoomLocation(BoomLocation boomLocation)
@@ -35,8 +41,11 @@ namespace DAL
 
         public void deleteReport(Report report)
         {
-            ds.reports.Remove(report);
-            ds.SaveChanges();
+            using (var ds = new dataSource())
+            {
+                ds.reports.Remove(report);
+                ds.SaveChanges();
+            }
         }
 
         public BoomLocation GetBoomLocation(BoomLocation boomLocation)

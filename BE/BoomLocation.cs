@@ -9,6 +9,6 @@ namespace BE
     public class BoomLocation
     {
         public string address { set; get; }
-        public List<Report> reports { set; get; }
+       // public List<Report> reports { set; get; }
     }
 }

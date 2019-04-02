@@ -8,9 +8,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace BL
 {
-    class bl_imp:IBL
+    public class bl_imp : IBL
     {
 
         IDAL dal;
@@ -82,10 +83,10 @@ namespace BL
                 return null;
             }
 
-            latitude_Min = SequenceOfReports.Min(item => item.CoordinateForAddress.Latitude);
-            latitude_Max = SequenceOfReports.Max(item => item.CoordinateForAddress.Latitude);
-            longitude_Min = SequenceOfReports.Min(item => item.CoordinateForAddress.Longitude);
-            longitude_Max = SequenceOfReports.Max(item => item.CoordinateForAddress.Longitude);
+            latitude_Min = SequenceOfReports.Min(item => item.CoordinateFromAddress.Latitude);
+            latitude_Max = SequenceOfReports.Max(item => item.CoordinateFromAddress.Latitude);
+            longitude_Min = SequenceOfReports.Min(item => item.CoordinateFromAddress.Longitude);
+            longitude_Max = SequenceOfReports.Max(item => item.CoordinateFromAddress.Longitude);
 
             for (int i = 0; i < NumOfBooms; i++)
             {
@@ -103,12 +104,12 @@ namespace BL
 
                 for (int i = 0; i < SequenceOfReports.Count; i++)
                 {
-                    double min = SequenceOfReports[i].CoordinateForAddress.GetDistanceTo(ci_List[0]);
+                    double min = SequenceOfReports[i].CoordinateFromAddress.GetDistanceTo(ci_List[0]);
                     SequenceOfReports[i].stamID = 0;
 
                     for (int j = 1; j < ci_List.Count; j++)
                     {
-                        double temp = SequenceOfReports[i].CoordinateForAddress.GetDistanceTo(ci_List[j]);
+                        double temp = SequenceOfReports[i].CoordinateFromAddress.GetDistanceTo(ci_List[j]);
                         if (temp < min)
                         {
                             min = temp;
@@ -129,8 +130,8 @@ namespace BL
                 {
                     if (SequenceOfReports[i].stamID == id)
                     {
-                        c_LatitudeSum += SequenceOfReports[i].CoordinateForAddress.Latitude;
-                        c_LongitudeSum += SequenceOfReports[i].CoordinateForAddress.Longitude;
+                        c_LatitudeSum += SequenceOfReports[i].CoordinateFromAddress.Latitude;
+                        c_LongitudeSum += SequenceOfReports[i].CoordinateFromAddress.Longitude;
                         counter++;
                     }
                     if (SequenceOfReports[i].stamID != id)
@@ -152,11 +153,25 @@ namespace BL
 
         public GeoCoordinate ConvertAddressToCoordinate(string address)
         {
-            GoogleLocationService locationService = new GoogleLocationService();
-            MapPoint point = locationService.GetLatLongFromAddress(address);
-            double latitude = point.Latitude;
-            double longitude = point.Longitude;
-            return new GeoCoordinate(latitude, longitude);
+            try
+            {
+                GoogleLocationService locationService = new GoogleLocationService();
+                
+                MapPoint point = locationService.GetLatLongFromAddress(address);
+                double latitude = point.Latitude;
+                double longitude = point.Longitude;
+                return new GeoCoordinate(latitude, longitude);
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+
+
+
+
+
         }
     }
 }
