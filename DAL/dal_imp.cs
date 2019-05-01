@@ -2,13 +2,14 @@
 using DS;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DAL
 {
-    public class dal_imp : IDAL
+    public class dal_imp 
     {
         // dataSource ds;
         //public dal_imp()
@@ -18,7 +19,8 @@ namespace DAL
 
         public void addBoomLocation(BoomLocation boomLocation)
         {
-            using (var ds = new dataSource())
+            dataSource ds = new dataSource();
+            using (
             {
                 ds.boomlocations.Add(boomLocation);
                 ds.SaveChanges();

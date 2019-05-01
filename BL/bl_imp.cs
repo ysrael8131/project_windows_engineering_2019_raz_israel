@@ -4,6 +4,7 @@ using GoogleMaps.LocationServices;
 using System;
 using System.Collections.Generic;
 using System.Device.Location;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,15 +14,18 @@ namespace BL
 {
     public class bl_imp : IBL
     {
+        
 
-        IDAL dal;
-        public bl_imp()
-        {
-            dal = new dal_imp();
-        }
         public void addBoomLocation(BoomLocation boomLocation)
         {
-            dal.addBoomLocation(boomLocation);
+            
+
+
+
+            using ()
+            {
+                dal.addBoomLocation(boomLocation);
+            }
         }
 
         public void addReport(Report report)
@@ -156,7 +160,7 @@ namespace BL
             try
             {
                 GoogleLocationService locationService = new GoogleLocationService();
-                
+
                 MapPoint point = locationService.GetLatLongFromAddress(address);
                 double latitude = point.Latitude;
                 double longitude = point.Longitude;
