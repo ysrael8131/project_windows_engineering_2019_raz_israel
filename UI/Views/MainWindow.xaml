@@ -1,0 +1,41 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UI"
+        xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui" xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars" xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:syncfusion="http://schemas.syncfusion.com/wpf" xmlns:dxm="http://schemas.devexpress.com/winfx/2008/xaml/map" x:Class="UI.MainWindow"
+        mc:Ignorable="d"
+        Title="MainWindow">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="122*"/>
+            <RowDefinition Height="311*"/>
+
+        </Grid.RowDefinitions>
+        <dxwui:PageView Header="תפריט" Background="Gray" Grid.Row="0" >
+            <dxwui:PageViewItem Header="הוסף דיווח" MouseEnter="PageViewItem_MouseEnter" MouseDoubleClick="addReportwclick">
+                <Grid Background="#FFE5E5E5"/>
+            </dxwui:PageViewItem>
+            <dxwui:PageViewItem Header="מפת נפילות" MouseDoubleClick="explosionMapWclick">
+                <Grid Background="#FFE5E5E5"/>
+            </dxwui:PageViewItem>
+            <dxwui:PageViewItem Header="נתונים סטטסטיים">
+                <Grid Background="#FFE5E5E5"/>
+            </dxwui:PageViewItem>
+            <dxwui:PageViewItem Header="עדכוני נפילות" >
+                <Grid Background="#FFE5E5E5"/>
+            </dxwui:PageViewItem>
+            <dxwui:PageViewItem Header="חיפוש">
+                <Grid Background="#FFE5E5E5"/>
+            </dxwui:PageViewItem>
+            <dxwui:PageViewItem Header="אודות">
+                <Grid Background="#FFE5E5E5"/>
+            </dxwui:PageViewItem>
+        </dxwui:PageView>
+        <ContentControl x:Name="page" Grid.Row="1" />
+        <syncfusion:SfHeatMap HorizontalAlignment="Left" Height="200" Margin="-560,115.6,0,0" Grid.Row="1" VerticalAlignment="Top" Width="175"/>
+
+
+    </Grid>
+</Window>

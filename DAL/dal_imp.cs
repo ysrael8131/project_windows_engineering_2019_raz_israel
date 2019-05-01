@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    public class dal_imp : IDAL
+    public class dal_imp : IDAL , IDisposable
     {
         dataSource ds;
         public dal_imp()
@@ -22,7 +22,7 @@ namespace DAL
             ds.SaveChanges();
         }
 
-        public void addBoomsInRange(BoomsInRange boomsInRange)
+        public void addEvent(Event event1)
         {
             throw new NotImplementedException();
         }
@@ -38,7 +38,7 @@ namespace DAL
 
         }
 
-        public void deleteBoomsInRange(BoomsInRange boomsInRange)
+        public void deleteEvent(Event event1)
         {
             throw new NotImplementedException();
         }
@@ -49,18 +49,23 @@ namespace DAL
             ds.SaveChanges();
         }
 
+        public void Dispose()
+        {
+            throw new NotImplementedException();
+        }
+
         public BoomLocation GetBoomLocation(BoomLocation boomLocation)
         {
 
             return ds.boomlocations.Find(boomLocation);
         }
 
-        public BoomsInRange GetBoomsInRange(BoomsInRange boomsInRange)
+        public Event GetEvent(Event event1)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<BoomsInRange> GetBoomsInRanges()
+        public IEnumerable<Event> GetEvents()
         {
             throw new NotImplementedException();
         }
@@ -85,7 +90,7 @@ namespace DAL
             throw new NotImplementedException();
         }
 
-        public void updateBoomsInRange(BoomsInRange boomsInRange)
+        public void updateEvent(Event event1)
         {
             throw new NotImplementedException();
         }

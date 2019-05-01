@@ -11,8 +11,6 @@ namespace BE
     {
         public GeoCoordinate address { set; get; }
         public GeoCoordinate rightAddress { set; get; }
-        public TimeSpan tyme { set; get; }
-
-        //public List<Report> reports { set; get; }
+        public DateTime time { set; get; }
     }
 }

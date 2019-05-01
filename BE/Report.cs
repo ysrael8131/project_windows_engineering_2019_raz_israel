@@ -9,8 +9,9 @@ namespace BE
 {
     public class Report
     {
-        public TimeSpan time { set; get; }
-        public GeoCoordinate address { set; get; }
+        public DateTime time { set; get; }
+        public double Latitude { set; get; }
+        public double Longitude { set; get; }
         public int stamID { set; get; }
         public string name { set; get; }
         public int numBooms { set; get; }

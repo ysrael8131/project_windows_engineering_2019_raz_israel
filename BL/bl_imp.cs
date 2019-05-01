@@ -7,148 +7,169 @@ using System.Device.Location;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace BL
 {
     class bl_imp : IBL
     {
 
-        IDAL dal;
-        public bl_imp()
-        {
-            dal = new dal_imp();
-        }
+        public bl_imp() { }
         public void addBoomLocation(BoomLocation boomLocation)
         {
-            dal.addBoomLocation(boomLocation);
+            using (dal_imp dal = new dal_imp())
+                dal.addBoomLocation(boomLocation);
         }
 
         public void addReport(Report report)
         {
-            dal.addReport(report);
+            using (dal_imp dal = new dal_imp())
+            {
+                dal.addReport(report);
+
+                //  List<Event> event1 = GetEvents().ToList().FindAll();
+
+
+                Event event1 = new Event();
+                event1.start = report.time;
+                event1.end = report.time.AddMinutes(10);
+                event1.reports = new List<Report>();
+                event1.reports.Add(report);
+
+            }
         }
 
         public void deleteBoomLocation(BoomLocation boomLocation)
         {
-            dal.deleteBoomLocation(boomLocation);
+            using (dal_imp dal = new dal_imp())
+            {
+                dal.deleteBoomLocation(boomLocation);
+            }
         }
 
         public void deleteReport(Report report)
         {
-            dal.deleteReport(report);
+            using (dal_imp dal = new dal_imp())
+                dal.deleteReport(report);
         }
 
         public BoomLocation GetBoomLocation(BoomLocation boomLocation)
         {
-            return dal.GetBoomLocation(boomLocation);
+            using (dal_imp dal = new dal_imp())
+                return dal.GetBoomLocation(boomLocation);
         }
 
         public IEnumerable<BoomLocation> getListBoomLocation()
         {
-            return dal.getListBoomLocation();
+            using (dal_imp dal = new dal_imp())
+                return dal.getListBoomLocation();
         }
 
         public IEnumerable<Report> getListReports()
         {
-            return dal.getListReports();
+            using (dal_imp dal = new dal_imp())
+                return dal.getListReports();
         }
 
         public Report GetReport(Report report)
         {
-            return dal.GetReport(report);
+            using (dal_imp dal = new dal_imp())
+                return dal.GetReport(report);
         }
 
         public void updateBoomLocation(BoomLocation boomLocation)
         {
-            dal.updateBoomLocation(boomLocation);
+            using (dal_imp dal = new dal_imp())
+                dal.updateBoomLocation(boomLocation);
         }
 
         public void updateReport(Report report)
         {
-            dal.updateReport(report);
+            using (dal_imp dal = new dal_imp())
+                dal.updateReport(report);
         }
 
-        public List<GeoCoordinate> k_Means(List<Report> SequenceOfReports, int NumOfBooms)
-        {
+        //public List<GeoCoordinate> k_Means(List<Report> SequenceOfReports, int NumOfBooms)
+        //{
 
-            List<GeoCoordinate> ci_List = new List<GeoCoordinate>();
-            double latitude_Min;
-            double latitude_Max;
-            double longitude_Min;
-            double longitude_Max;
+        //    List<GeoCoordinate> ci_List = new List<GeoCoordinate>();
+        //    double latitude_Min;
+        //    double latitude_Max;
+        //    double longitude_Min;
+        //    double longitude_Max;
 
-            if (!SequenceOfReports.Any())
-            {
-                return null;
-            }
+        //    if (!SequenceOfReports.Any())
+        //    {
+        //        return null;
+        //    }
 
-            latitude_Min = SequenceOfReports.Min(item => item.address.Latitude);
-            latitude_Max = SequenceOfReports.Max(item => item.address.Latitude);
-            longitude_Min = SequenceOfReports.Min(item => item.address.Longitude);
-            longitude_Max = SequenceOfReports.Max(item => item.address.Longitude);
+        //    latitude_Min = SequenceOfReports.Min(item => item.address.Latitude);
+        //    latitude_Max = SequenceOfReports.Max(item => item.address.Latitude);
+        //    longitude_Min = SequenceOfReports.Min(item => item.address.Longitude);
+        //    longitude_Max = SequenceOfReports.Max(item => item.address.Longitude);
 
-            for (int i = 0; i < NumOfBooms; i++)
-            {
-                Random r = new Random();
-                double latitude = latitude_Min + r.NextDouble() * (latitude_Max - latitude_Min);
-                double longitude = longitude_Min + r.NextDouble() * (longitude_Max - longitude_Min);
-                GeoCoordinate c = new GeoCoordinate(latitude, longitude);
-                ci_List.Add(c);
-            }
+        //    for (int i = 0; i < NumOfBooms; i++)
+        //    {
+        //        Random r = new Random();
+        //        double latitude = latitude_Min + r.NextDouble() * (latitude_Max - latitude_Min);
+        //        double longitude = longitude_Min + r.NextDouble() * (longitude_Max - longitude_Min);
+        //        GeoCoordinate c = new GeoCoordinate(latitude, longitude);
+        //        ci_List.Add(c);
+        //    }
 
-            bool is_Changed;
-            do
-            {
-                is_Changed = false;
+        //    bool is_Changed;
+        //    do
+        //    {
+        //        is_Changed = false;
 
-                for (int i = 0; i < SequenceOfReports.Count; i++)
-                {
-                    double min = SequenceOfReports[i].address.GetDistanceTo(ci_List[0]);
-                    SequenceOfReports[i].stamID = 0;
+        //        for (int i = 0; i < SequenceOfReports.Count; i++)
+        //        {
+        //            double min = SequenceOfReports[i].address.GetDistanceTo(ci_List[0]);
+        //            SequenceOfReports[i].stamID = 0;
 
-                    for (int j = 1; j < ci_List.Count; j++)
-                    {
-                        double temp = SequenceOfReports[i].address.GetDistanceTo(ci_List[j]);
-                        if (temp < min)
-                        {
-                            min = temp;
-                            is_Changed = true;
-                            SequenceOfReports[i].stamID = j;
-                        }
-                    }
+        //            for (int j = 1; j < ci_List.Count; j++)
+        //            {
+        //                double temp = SequenceOfReports[i].address.GetDistanceTo(ci_List[j]);
+        //                if (temp < min)
+        //                {
+        //                    min = temp;
+        //                    is_Changed = true;
+        //                    SequenceOfReports[i].stamID = j;
+        //                }
+        //            }
 
-                }
+        //        }
 
 
-                SequenceOfReports.OrderBy(c => c.stamID);
-                int id = 0;
-                double c_LongitudeSum = 0;
-                double c_LatitudeSum = 0;
-                int counter = 0;
-                for (int i = 0; i < SequenceOfReports.Count; i++)
-                {
-                    if (SequenceOfReports[i].stamID == id)
-                    {
-                        c_LatitudeSum += SequenceOfReports[i].address.Latitude;
-                        c_LongitudeSum += SequenceOfReports[i].address.Longitude;
-                        counter++;
-                    }
-                    if (SequenceOfReports[i].stamID != id)
-                    {
-                        ci_List[id].Latitude = c_LatitudeSum / counter;
-                        ci_List[id].Longitude = c_LongitudeSum / counter;
-                        counter = 0;
-                        c_LongitudeSum = 0;
-                        c_LatitudeSum = 0;
-                        i--;
-                        id++;
-                    }
-                }
+        //        SequenceOfReports.OrderBy(c => c.stamID);
+        //        int id = 0;
+        //        double c_LongitudeSum = 0;
+        //        double c_LatitudeSum = 0;
+        //        int counter = 0;
+        //        for (int i = 0; i < SequenceOfReports.Count; i++)
+        //        {
+        //            if (SequenceOfReports[i].stamID == id)
+        //            {
+        //                c_LatitudeSum += SequenceOfReports[i].address.Latitude;
+        //                c_LongitudeSum += SequenceOfReports[i].address.Longitude;
+        //                counter++;
+        //            }
+        //            if (SequenceOfReports[i].stamID != id)
+        //            {
+        //                ci_List[id].Latitude = c_LatitudeSum / counter;
+        //                ci_List[id].Longitude = c_LongitudeSum / counter;
+        //                counter = 0;
+        //                c_LongitudeSum = 0;
+        //                c_LatitudeSum = 0;
+        //                i--;
+        //                id++;
+        //            }
+        //        }
 
-            } while (is_Changed);
+        //    } while (is_Changed);
 
-            return ci_List;
-        }
+        //    return ci_List;
+        //}
 
         public GeoCoordinate ConvertAddressToCoordinate(string address)
         {
@@ -158,30 +179,33 @@ namespace BL
             double longitude = point.Longitude;
             return new GeoCoordinate(latitude, longitude);
         }
-        
-        public void addBoomsInRange(BoomsInRange boomsInRange)
+
+        public void addEvent(Event event1)
         {
-            throw new NotImplementedException();
+            using (dal_imp dal = new dal_imp()) ;
+
         }
 
-        public void deleteBoomsInRange(BoomsInRange boomsInRange)
+        public void deleteEvent(Event event1)
         {
-            throw new NotImplementedException();
+            using (dal_imp dal = new dal_imp()) ;
         }
 
-        public void updateBoomsInRange(BoomsInRange boomsInRange)
+        public void updateEvent(Event event1)
         {
-            throw new NotImplementedException();
+            using (dal_imp dal = new dal_imp()) ;
         }
 
-        public IEnumerable<BoomsInRange> GetBoomsInRanges()
+        public IEnumerable<Event> GetEvents()
         {
-            throw new NotImplementedException();
+            using (dal_imp dal = new dal_imp()) 
+                return dal.GetEvents();
         }
 
-        public BoomsInRange GetBoomsInRange(BoomsInRange boomsInRange)
+        public Event GetEvent(Event event1)
         {
-            throw new NotImplementedException();
+            using (dal_imp dal = new dal_imp())
+                return dal.GetEvent(event1);
         }
     }
 }

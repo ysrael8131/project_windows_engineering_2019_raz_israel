@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace BE
 {
-    public class BoomsInRange
+    public class Event
     {
+        public int idEvent { set; get; }
+        public List<Report> reports { set; get; }
         public List<BoomLocation> boomLocations { set; get; }
-        public TimeSpan start { set; get; }
-        public TimeSpan end { set; get; }
+        public DateTime start { set; get; }
+        public DateTime end { set; get; }
     }
 }
