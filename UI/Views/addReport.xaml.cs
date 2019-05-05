@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Syncfusion.Windows.Controls.Input;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,15 +15,16 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using UI.ViewModels;
 
-namespace UI
+namespace UI.Views
 {
     /// <summary>
-    /// Interaction logic for addReport.xaml
+    /// Interaction logic for AddReport.xaml
     /// </summary>
-    public partial class addReport : UserControl
+    public partial class AddReport : UserControl
     {
         public AddReportViewModel CurrentVM { set; get; }
-        public addReport()
+
+        public AddReport()
         {
             InitializeComponent();
             CurrentVM = new AddReportViewModel();

@@ -24,7 +24,7 @@ namespace BL
 
         IEnumerable<BoomLocation> getListBoomLocation();
         IEnumerable<Report> getListReports();
-        IEnumerable<Event> GetEvents();
+        Task<List<Event>> GetEvents();
 
         BoomLocation GetBoomLocation(BoomLocation boomLocation);
         Report GetReport(Report Report);

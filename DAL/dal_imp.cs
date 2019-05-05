@@ -2,19 +2,20 @@
 using DS;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DAL
 {
-    public class dal_imp : IDAL , IDisposable
+    public class dal_imp : IDAL, IDisposable
     {
         dataSource ds;
         public dal_imp()
         {
             ds = new dataSource();
-        }
+       }
 
         public void addBoomLocation(BoomLocation boomLocation)
         {
@@ -22,16 +23,18 @@ namespace DAL
             ds.SaveChanges();
         }
 
-        public void addEvent(Event event1)
+        public async void addEvent(Event event1)
         {
-            throw new NotImplementedException();
+            ds.events.Add(event1);
+            await ds.SaveChangesAsync();
         }
 
-        public void addReport(Report report)
+        public async void addReport(Report report)
         {
-            ds.reports.Add(report);
-            ds.SaveChanges();
-        }
+          
+            await ds.SaveChangesAsync();
+            Event ev2 = ds.events.Find(3);
+                 }
 
         public void deleteBoomLocation(BoomLocation boomLocation)
         {
@@ -51,7 +54,6 @@ namespace DAL
 
         public void Dispose()
         {
-            throw new NotImplementedException();
         }
 
         public BoomLocation GetBoomLocation(BoomLocation boomLocation)
@@ -65,9 +67,9 @@ namespace DAL
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Event> GetEvents()
+        public async Task<List<Event>> GetEvents()
         {
-            throw new NotImplementedException();
+            return await (from d in ds.events select d).ToListAsync();
         }
 
         public IEnumerable<BoomLocation> getListBoomLocation()
@@ -90,9 +92,20 @@ namespace DAL
             throw new NotImplementedException();
         }
 
-        public void updateEvent(Event event1)
+        public async void updateEvent(Event event1)
         {
-            throw new NotImplementedException();
+            if (ds.events.Find(event1.NumEvent) != null)
+            {
+                Event event2 = ds.events.Find(event1.NumEvent);
+                ds.events.Remove(event2);
+                ds.events.Add(event1);
+                await ds.SaveChangesAsync();
+            }
+            else
+            {
+                throw new Exception("no event");
+            }
+
         }
 
         public void updateReport(Report report)
